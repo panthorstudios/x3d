@@ -23,6 +23,7 @@ Phong shading:
 
 The file format is as follows:
 
+```
 <N (# vertices)>
 <vertex 0: x y z>
 ...
@@ -31,6 +32,7 @@ The file format is as follows:
 <polygon 0: #vertices color>
 ...
 <polygon M-1: vertex 0 index (0->N-1)>
+```
 
 The order of the vertices in the polygons must be counterclockwise for the shading to work properly.
 
