@@ -21,17 +21,17 @@ Phong shading:
 ![phong](img/x3d-phong.png "Phong")
 
 
-The file format is as follows:
+The file format is as follows, where N is the number of vertices in the object and M is the number of polygons. Polygons will be broken into triangles if not triangles already:
 
 ```
-<N (# vertices)>
-<vertex 0: x y z>
+<N>
+<vertex 0: x y z> # x, y, and z are floats
 ...
-<vertex N-1: x y z>
-<M (# polygons)>
-<polygon 0: #vertices color>
+<vertex N-1: x y z> 
+<M>
+<polygon 0: P color#> # color is a number from 0-255. 1 is a good value.
 ...
-<polygon M-1: vertex 0 index (0->N-1)>
+<polygon M-1: 0->N-1> # The number is a reference to one of the vertices defined in the first part of the file
 ```
 
 The order of the vertices in the polygons must be counterclockwise for the shading to work properly.
