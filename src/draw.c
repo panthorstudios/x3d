@@ -1,3 +1,4 @@
+#include <float.h>
 #include "main.h" 
 #define pi  3.141592654
 extern vertex *vertices;
@@ -63,12 +64,13 @@ int n,shading;
            halfway,iv1,iv2,lightvec1,tempvec;
     vertex lvec1,lvec2,lvec3,wp[3],dwpside,dwpside1,wpside,wpside1;
     vertex wpvec,wpdx,wpdx1,wpdx3,wpdx2;
+
 /******************************************
 * clear the z-buffer and frame buffer
 *******************************************/
     for (i=0;i<WINDOW_H;i++)
         for (j=0;j<WINDOW_V;j++)
-            zbuf[i][j] = max_normal();
+            zbuf[i][j] = FLT_MAX;
     XClearWindow(theDisplay,mainWindow);
 
 /******************************************
@@ -184,29 +186,29 @@ int n,shading;
 **************************************/
         dx1 = (p[ymax][0]-
                p[ymin][0])/
-              (anint(p[ymax][1]) -
-               anint(p[ymin][1]));
+              (round(p[ymax][1]) -
+               round(p[ymin][1]));
         dx2 = (p[ymid][0]-
                p[ymin][0])/
-              (anint(p[ymid][1]) -
-                anint(p[ymin][1]));
+              (round(p[ymid][1]) -
+                round(p[ymin][1]));
         dx3 = (p[ymax][0]-
                p[ymid][0])/
-              (anint(p[ymax][1]) -
-               anint(p[ymid][1]));
+              (round(p[ymax][1]) -
+               round(p[ymid][1]));
 /**********************************************
 * compute delta z values and initial z position
 ***********************************************/
 
-        dzx1 = (p[ymax][2]-p[ymin][2])/(anint(p[ymax][1])-anint(p[ymin][1]));
-        dzx2 = (p[ymid][2]-p[ymin][2])/(anint(p[ymid][1])-anint(p[ymin][1]));
-        dzx3 = (p[ymax][2]-p[ymid][2])/(anint(p[ymax][1])-anint(p[ymid][1]));
+        dzx1 = (p[ymax][2]-p[ymin][2])/(round(p[ymax][1])-round(p[ymin][1]));
+        dzx2 = (p[ymid][2]-p[ymin][2])/(round(p[ymid][1])-round(p[ymin][1]));
+        dzx3 = (p[ymax][2]-p[ymid][2])/(round(p[ymax][1])-round(p[ymid][1]));
 
 /***************************************************
 * compute top and bottom scan lines
 ****************************************************/
-        scany = nint(p[ymin][1]);
-        scanyend = nint(p[ymax][1]);
+        scany = rint(p[ymin][1]);
+        scanyend = rint(p[ymax][1]);
 /****************************************************
 * compute Gouraud intensities at vertices and deltas
 *****************************************************/
@@ -237,18 +239,18 @@ int n,shading;
         if (gourint2 >1) gourint2 = 1;
         if (gourint3 >1) gourint3 = 1;
 
-        gourdx1 = (gourint3-gourint1)/(anint(p[ymax][1])-anint(p[ymin][1]));
-        gourdx2 = (gourint2-gourint1)/(anint(p[ymid][1])-anint(p[ymin][1]));
-        gourdx3 = (gourint3-gourint2)/(anint(p[ymax][1])-anint(p[ymid][1]));
+        gourdx1 = (gourint3-gourint1)/(round(p[ymax][1])-round(p[ymin][1]));
+        gourdx2 = (gourint2-gourint1)/(round(p[ymid][1])-round(p[ymin][1]));
+        gourdx3 = (gourint3-gourint2)/(round(p[ymax][1])-round(p[ymid][1]));
 
 /******************************************************
 * Compute normal vector interpolations
 * and set up interpolation of light vectors
 *******************************************************/
 
-        ph1 = anint(p[ymax][1])-anint(p[ymin][1]);
-        ph2 = anint(p[ymid][1])-anint(p[ymin][1]);
-        ph3 = anint(p[ymax][1])-anint(p[ymid][1]);
+        ph1 = round(p[ymax][1])-round(p[ymin][1]);
+        ph2 = round(p[ymid][1])-round(p[ymin][1]);
+        ph3 = round(p[ymax][1])-round(p[ymid][1]);
         if (shading == PHONG ) {
             wpdx1[0] = (wp[ymax][0]-wp[ymin][0])/ph1;
             wpdx1[1] = (wp[ymax][1]-wp[ymin][1])/ph1;
@@ -303,7 +305,7 @@ int n,shading;
             phong2[1] = vnormals[polygons[i].verts[ymin]][1];
             phong2[2] = vnormals[polygons[i].verts[ymin]][2];
         }
-        if (nint(p[ymid][1]) != nint( p[ymin][1])) { 
+        if (rint(p[ymid][1]) != rint( p[ymin][1])) { 
             scanx1 = scanx;
             scanz1 = scanz;
             yint1 = yint; 
@@ -432,7 +434,7 @@ int n,shading;
 ****************************************/
         for (k = scany; k<=scanyend;k++) {
             zpos = scanz;
-            dz = (scanz1-scanz)/(anint(scanx1)-anint(scanx));
+            dz = (scanz1-scanz)/(round(scanx1)-round(scanx));
             dintensity = yint;
             if (shading == PHONG) {
                 iv1[0] = wpside[0];
@@ -444,7 +446,7 @@ int n,shading;
                 wpvec[0] = iv1[0];
                 wpvec[1] = iv1[1];
                 wpvec[2] = iv1[2];
-                ph3 = anint(scanx1) - anint(scanx);
+                ph3 = round(scanx1) - round(scanx);
                 wpdx[0] = (iv2[0]-iv1[0])/ph3;
                 wpdx[1] = (iv2[1]-iv1[1])/ph3;
                 wpdx[2] = (iv2[2]-iv1[2])/ph3;
@@ -457,15 +459,15 @@ int n,shading;
                 pointnormal[0] = iv1[0];
                 pointnormal[1] = iv1[1];
                 pointnormal[2] = iv1[2];
-                ph3 = anint(scanx1) - anint(scanx);
+                ph3 = round(scanx1) - round(scanx);
                 phongdx[0] = (iv2[0] - iv1[0])/ph3;
                 phongdx[1] = (iv2[1] - iv1[1])/ph3;
                 phongdx[2] = (iv2[2] - iv1[2])/ph3;
             }
             if (shading == GOURAUD) {
-                dintens = (yint1-yint)/(anint(scanx1)-anint(scanx));
+                dintens = (yint1-yint)/(round(scanx1)-round(scanx));
             }
-            for (j=nint(scanx);j<=nint(scanx1);j++) {
+            for (j=rint(scanx);j<=rint(scanx1);j++) {
                 if (zpos < zbuf[j][k]) {
                     zbuf[j][k] = zpos; 
                     if (shading == GOURAUD) {
@@ -530,7 +532,7 @@ int n,shading;
                 wpside1[2] += dwpside1[2];
             }
 
-            if ( (k+1) == nint(p[ymid][1])) {
+            if ( (k+1) == rint(p[ymid][1])) {
                 if (dx1>dx2) {
                     delta = dx3;
                     deltaz = dzx3;

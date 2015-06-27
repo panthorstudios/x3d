@@ -35,7 +35,7 @@
     Display *theDisplay; /* X's display id */
     GC       mainGC;      /* X's graphics context id */
     Window   mainWindow;
-    Window   outerWindow=NULL;  /* the outermost window */
+    Window   outerWindow=(Window)NULL;  /* the outermost window */
     unsigned long  LightBluePen,BluePen,WhitePen,BlackPen,YellowPen,
                    RedPen,GreenPen,grey70Pen,pinkPen;
     int      *theScreen,tempx[2],tempy[2],tempz[2];
@@ -297,7 +297,7 @@ void createWidgets() {
     n = 0;
     XtSetArg( argList[n], XtNjustify, XtJustifyLeft);    n++;
     XtSetArg( argList[n], XtNborderWidth, 0);    n++;
-    XtSetArg( argList[n], XtNfromVert, vrpmsg);    n++;
+    XtSetArg( argList[n], XtNfromVert, vrp1);    n++;
     XtSetArg( argList[n], XtNwidth, 50);           n++;
     XtSetArg( argList[n], XtNlabel, "VPN");  n++;
     XtSetArg(argList[n], XtNbackground, grey70Pen); n++;
@@ -338,7 +338,7 @@ void createWidgets() {
     XtSetArg( argList[n], XtNjustify, XtJustifyLeft);    n++;
     XtSetArg( argList[n], XtNborderWidth, 0);    n++;
     XtSetArg( argList[n], XtNwidth, 50);           n++;
-    XtSetArg( argList[n], XtNfromVert, vpnmsg);    n++;
+    XtSetArg( argList[n], XtNfromVert, vpn1);    n++;
     XtSetArg( argList[n], XtNlabel, "COP");  n++;
     XtSetArg(argList[n], XtNbackground, grey70Pen); n++;
     copmsg = XtCreateManagedWidget("copmessage", labelWidgetClass,
@@ -378,7 +378,7 @@ void createWidgets() {
     XtSetArg( argList[n], XtNjustify, XtJustifyLeft);    n++;
     XtSetArg( argList[n], XtNborderWidth, 0);    n++;
     XtSetArg( argList[n], XtNwidth, 50);           n++;
-    XtSetArg( argList[n], XtNfromVert, copmsg);    n++;
+    XtSetArg( argList[n], XtNfromVert, cop1);    n++;
     XtSetArg( argList[n], XtNlabel, "DOP");  n++;
     XtSetArg(argList[n], XtNbackground, grey70Pen); n++;
     dopmsg = XtCreateManagedWidget("dopmessage", labelWidgetClass,
@@ -418,7 +418,7 @@ void createWidgets() {
     XtSetArg( argList[n], XtNjustify, XtJustifyLeft);    n++;
     XtSetArg( argList[n], XtNborderWidth, 0);    n++;
     XtSetArg( argList[n], XtNwidth, 50);           n++;
-    XtSetArg( argList[n], XtNfromVert, dopmsg);    n++;
+    XtSetArg( argList[n], XtNfromVert, dop1);    n++;
     XtSetArg( argList[n], XtNlabel, "VUP");  n++;
     XtSetArg(argList[n], XtNbackground, grey70Pen); n++;
     vupmsg = XtCreateManagedWidget("vupmessage", labelWidgetClass,
@@ -458,7 +458,7 @@ void createWidgets() {
     XtSetArg( argList[n], XtNjustify, XtJustifyLeft);    n++;
     XtSetArg( argList[n], XtNborderWidth, 0);    n++;
     XtSetArg( argList[n], XtNwidth, 50);           n++;
-    XtSetArg( argList[n], XtNfromVert, vupmsg);    n++;
+    XtSetArg( argList[n], XtNfromVert, vup1);    n++;
     XtSetArg( argList[n], XtNlabel, "umin");  n++;
     XtSetArg(argList[n], XtNbackground, grey70Pen); n++;
     umsg = XtCreateManagedWidget("umessage", labelWidgetClass,
@@ -499,7 +499,7 @@ void createWidgets() {
     XtSetArg( argList[n], XtNjustify, XtJustifyLeft);    n++;
     XtSetArg( argList[n], XtNborderWidth, 0);    n++;
     XtSetArg( argList[n], XtNwidth, 50);           n++;
-    XtSetArg( argList[n], XtNfromVert, umsg);    n++;
+    XtSetArg( argList[n], XtNfromVert, u1);    n++;
     XtSetArg( argList[n], XtNlabel, "vmin");  n++;
     XtSetArg(argList[n], XtNbackground, grey70Pen); n++;
     vmsg = XtCreateManagedWidget("vmessage", labelWidgetClass,
@@ -519,7 +519,7 @@ void createWidgets() {
     XtSetArg( argList[n], XtNjustify, XtJustifyLeft);    n++;
     XtSetArg( argList[n], XtNborderWidth, 0);    n++;
     XtSetArg( argList[n], XtNwidth, 50);           n++;
-    XtSetArg( argList[n], XtNfromVert, umsg);    n++;
+    XtSetArg( argList[n], XtNfromVert, u1);    n++;
     XtSetArg( argList[n], XtNfromHoriz, v1);    n++;
     XtSetArg( argList[n], XtNlabel, "vmax");  n++;
     XtSetArg(argList[n], XtNbackground, grey70Pen); n++;
@@ -981,7 +981,7 @@ void initX( argc, argv)
     fallbackResources[0]  ="*Text*editType:          edit";
     fallbackResources[1]  = "*Text*translations: #override \\n <Key>Return: doneReturn()";
     fallbackResources[2]  = "*.resizable:              False";
-    fallbackResources[3]  = "*.font:                   -*-helvetica-bold-r-normal--12-*";
+    fallbackResources[3]  = "*.font: fixed"; // -*-helvetica-bold-r-normal--12-*";
     fallbackResources[4]  = "*loadPrompt*value.translations: #override \\n <Key>Return: loadReturn()";
     fallbackResources[5]  = "*main_view*pro_form.background: pink";
     fallbackResources[6]  = "*main_view*pro_form2.background:  pink";

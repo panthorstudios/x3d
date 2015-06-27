@@ -16,8 +16,8 @@
 #include <X11/Intrinsic.h>
 #include <X11/StringDefs.h>
 
-#include <X11/Command.h>
-#include <X11/Paned.h>
+#include <X11/Xaw/Command.h>
+#include <X11/Xaw/Paned.h>
 #include <X11/Shell.h>
 #include <X11/cursorfont.h>
 
@@ -72,6 +72,7 @@
 #define  B           10 
 
 #define  sqr(M)    ((M)*(M))
+
 typedef float vector[4];
 typedef float matrix[4][4];
 typedef float vertex[3];
