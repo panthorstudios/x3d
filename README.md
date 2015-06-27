@@ -2,7 +2,24 @@
 
 [img/wireframe.png "wireframe"]
 
-This uses the Athena Widget libraries. It is possible to compile but the interface is not so great compared to more recent GUI frameworks.
+This is a simple renderer which uses Athena Widgets for the GUI. It is possible to compile but the interface is not so great compared to more recent GUI frameworks.
+
+You can render in wireframe:
+
+![wireframe](img/x3d-wireframe.png "Wireframe")
+
+Polygonal shading:
+
+![polygonal](img/x3d-polygonal.png "Polygonal")
+
+Gouraud shading:
+
+![gouraud](img/x3d-gouraud.png "Gouraud")
+
+Phong shading:
+
+![phong](img/x3d-phong.png "Phong")
+
 
 The file format is as follows:
 
@@ -20,7 +37,7 @@ The order of the vertices in the polygons must be counterclockwise for the shadi
 For example, a simple cube could be represented as follows.
 
 cube.x3d
-------------------
+```
 8
 0 0 0
 0 0 5
@@ -61,7 +78,7 @@ cube.x3d
 7
 3
 1
-
+```
 
 
 
