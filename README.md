@@ -1,8 +1,6 @@
 # X3D - A simplistic 3D rendering program in C
 
-[img/wireframe.png "wireframe"]
-
-This is a simple renderer which uses Athena Widgets for the GUI. It is possible to compile but the interface is not so great compared to more recent GUI frameworks.
+This is a simple renderer which uses Athena Widgets for the GUI. It is possible to compile (I've done it in CentOS) but the interface is not so great compared to more recent GUI frameworks.
 
 You can render in wireframe:
 
