@@ -5,7 +5,7 @@
 * This file contains the functions which initialize the X toolkit
 * and the main program, as well as a callback function.
 *
-* Author: Patrick Joiner and Miguel Quintero
+* Author: Patrick Joiner
 *******************************************************************/
 #include "main.h"
 #include "x3d_icon.h"
